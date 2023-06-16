@@ -1,0 +1,27 @@
+<launch>
+	<!-- Loading robot description in param server -->
+	<arg name="model_table" default="$(find models_pkg)/models/table/model.sdf"/>	
+	<param name="table" command="$(find xacro)/xacro --inorder $(arg model_table)"/>
+	
+	<arg name="model_cube" default="$(find models_pkg)/models/cube/model.sdf"/>	
+	<param name="cube" command="$(find xacro)/xacro --inorder $(arg model_cube)"/>
+
+	<arg name="model_cylinder" default="$(find models_pkg)/models/cylinder/model.sdf"/>	
+	<param name="cylinder" command="$(find xacro)/xacro --inorder $(arg model_cylinder)"/>
+	
+	<!-- Spawning the model in gazebo -->
+	<node name="spawn_table_1" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false"
+		args="-param table -sdf -model table -x 5 -y 0 -z 0"/>
+		
+	<node name="spawn_table_2" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false"
+		args="-param table -sdf -model table_2 -x 0 -y -5 -z 0"/>
+		
+	<node name="spawn_table_3" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false"
+		args="-param table -sdf -model table_3 -x -4 -y -4 -z 0"/>
+		
+	<node name="model_cube" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false"
+		args="-param cube -sdf -model cube -x 6 -y 0 -z 4.6"/>
+
+	<node name="model_cylinder" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false"
+		args="-param cylinder -sdf -model cylinder -x 1 -y -6 -z 4.6"/>
+</launch>

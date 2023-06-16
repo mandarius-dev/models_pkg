@@ -1,0 +1,27 @@
+<launch>
+	<!-- Launching Gazebo with empty world -->
+  	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+	   <arg name="paused" value="false"/>
+	   <arg name="gui" value="true"/>
+  	</include>
+
+	<!-- Loading robot description in param server -->
+	<arg name="model_gazebo" default="$(find model_spawner)/model/wagen/wagen.urdf"/>	
+	<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model_gazebo)"/>
+	
+	<arg name="model_gazebo_new" default="$(find model_spawner)/model/wagen/model.urdf"/>	
+	<param name="robot_description_new" command="$(find xacro)/xacro --inorder $(arg model_gazebo_new)"/>
+	
+	<!-- Spawning the model in gazebo -->
+	<node name="model_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false"
+		args="-param robot_description -urdf -model wagen -x 0 -y 0 -z 0.6"/>
+	<node name="model_spawn_new" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false"
+		args="-param robot_description_new -urdf -model wagen_new -x 0 -y 0 -z 3"/>
+		
+	<!-- Publishing the joint state on /tf -->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+		
+	<!-- Rviz -->
+	<!--<node name="rviz" pkg="rviz" type="rviz" output="screen"/>-->
+</launch>
