@@ -9,7 +9,7 @@ Repositories:
  5. User Interface in LabView [[Link][UI]]
 
 ## Content 
-Auxiliary model for the manipulator simulation.
+Auxiliary models for the manipulator simulation.
 
 [UI]: https://github.com/mandarius-dev/arm_user_interface
 [spawner]: https://github.com/mandarius-dev/arm_model_spawner
